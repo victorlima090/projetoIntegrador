@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+Perfil page
+{% endblock %}
+{%block content%}
+<body>
+    <form method="POST" action = "/perfil">
+        Pergunta 1<input type="checkbox" value="1" name="mycheckbox">
+        Pergunta 2<input type="checkbox" value="2" name="mycheckbox">
+        Pergunta 3<input type="checkbox" value="3" name="mycheckbox">
+        <input type= "submit">
+    
+    </form>
+</body>
+{%endblock%}
