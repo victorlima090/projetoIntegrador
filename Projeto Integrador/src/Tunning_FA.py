@@ -5,7 +5,7 @@ import xgboost as xgb
 
 class Tunning_FA():
     def __init__(self, df, target,parameters, n_folds = 3, n_population = 20, n_interactions = 100, alpha = 0.1, betamin = 0.2, gamma = 1):
-        self.df = df
+        self.df = df.reset_index(drop=True)
         self.target = target
         self.n_folds = n_folds
         self.n_dimension = len(parameters)
@@ -39,7 +39,7 @@ class Tunning_FA():
          subsample = fireFly[5],
          reg_alpha = fireFly[6],
          reg_lambda = fireFly[7],
-         n_estimators  = fireFly[8],
+         n_estimators = int(fireFly[8]),
          seed= 248)
         n_fold = self.n_folds
         tscv = TimeSeriesSplit(n_splits=n_fold)
@@ -73,8 +73,7 @@ class Tunning_FA():
         end = time.time()
         self.time = end - start
         best_firefly = best_fireflies[best_index[0]]
-        self.best_firefly = best_firefly
-        return {
+        self.best_firefly = {
             "learning_rate" : best_firefly[0],
             "max_depth" : int(best_firefly[1]),
             "min_child_weight" : best_firefly[2],
@@ -83,6 +82,7 @@ class Tunning_FA():
             "subsample" : best_firefly[5],
             "reg_alpha" : best_firefly[6],
             "reg_lambda" : best_firefly[7],
-            "n_estimator" : best_firefly[8],
+            "n_estimators" : int(best_firefly[8])
         }
+        return self.best_firefly
         
